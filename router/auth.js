@@ -41,4 +41,34 @@ router.post("/register", async (req, res) => {
   }
 });
 
+
+router.post("/login", async (req, res)=>{
+
+    const {username, password} = req.body;
+
+    if(!username || !password)
+    {
+        res.status(422).json({error:"Please fill all the details"});
+    } 
+
+    try
+    {
+        const userExists = await User.findOne({username})
+
+        
+
+        if(password!=userExists.password)
+        {
+            res.status(401).json({error:"Wrong credentials!"})
+        }
+        else
+        {
+            res.status(201).json({message: "login successful"})
+            console.log(userExists)
+        }
+    }catch(e){
+        console.log(e)
+    }
+})
+
 module.exports = router;
