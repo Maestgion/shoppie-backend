@@ -40,11 +40,8 @@ const orderSchma = new mongoose.Schema(
             type: String,
             default: "Pending"
         },
-        timeDetails:
-        {
-            timestamps: true
-        }
-    }
+       
+    }, {timestamps: true}
 );
 
 const Order = mongoose.model("order", orderSchma);

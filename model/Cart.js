@@ -21,13 +21,10 @@ const cartSchema = new mongoose.Schema(
             },
             },
         ],
-        timeDetails:
-        {
-            timeStamps: true
-        }
+        
             
         
-    }
+    }, {timestamps: true}
 );
 
 const Cart = mongoose.model("cart", cartSchema)
