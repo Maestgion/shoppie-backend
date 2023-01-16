@@ -7,7 +7,9 @@ const PORT = process.env.PORT
 
 const userRoute = require("../router/user") 
 
-app.use("/api/user", userRoute )
+
+app.use(express.json())
+app.use("/api/users", userRoute )
 
 app.listen(PORT, ()=>{
     console.log("server up ")
