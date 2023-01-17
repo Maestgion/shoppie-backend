@@ -39,6 +39,16 @@ const userSchema = new mongoose.Schema({
     
 },{timestamps:true});
 
+userSchema.pre('save', async function(next){
+    if(this.isModified('password'))
+    {
+        this.password=await bcrypt.hash(this.password, 10)
+        this.cnfPassword = await bcrypt.hash(this.cnfPassword, 10)
+
+    }
+    next()
+})
+
 const User = mongoose.model("registration", userSchema)
 
 module.exports = User;
