@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs")
 const User = require("../model/User");
 
+
 router.post("/register", async (req, res) => {
   const { name, lastName, username, email, password, cnfPassword } = req.body;
 
@@ -63,6 +64,12 @@ router.post("/login", async (req, res)=>{
         }
         else
         {   
+            const token = await userExists.generateToken()
+            console.log(token) 
+            res.cookie("jwtoken", token, {
+              expires: new Date(Date.now() + 2592000000),
+              httpOnly: true
+            })
             const {password, cnfPassword, ...others} = userExists._doc
             res.status(201).json({message: "login successful", others})
             console.log(userExists)
