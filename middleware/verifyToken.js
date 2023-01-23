@@ -5,7 +5,8 @@ const verifyToken = async (req, res, next)=>{
 
     try
     {
-        const token = req.cookie.token;
+        const token = req.cookies.jwtoken;
+        console.log(token)
 
         const verification = jwt.verify(token, process.env.SECRET_KEY )
 
@@ -20,18 +21,41 @@ const verifyToken = async (req, res, next)=>{
        
         req.token = token
         req.rootUser = rootUser
-        req.userID = rootUser._id
-        req.admin = rootUser.isAdmin
+        // req.userID = rootUser._id
+        // req.admin = rootUser.isAdmin
 
         next()
     }catch(e)
     {   
         res.status(401).send("Unauthorized token access")
-        console.error(e);
+        console.log(e);
     }
 
 
 }
 
 
-module.exports=verifyToken
+const verifyTokenAndAuthorization = (req, res, next)=>{
+    verifyToken(req, res, ()=>{
+        if(req.rootUser._id=== req.params.id || req.rootUser.isAdmin)
+        {
+            next()
+        } 
+        else {
+            res.status(403).json("Unauthorized access!");
+            
+          }
+
+    })
+}
+
+
+
+module.exports = {
+    verifyToken,
+    verifyTokenAndAuthorization
+  };
+
+
+
+
