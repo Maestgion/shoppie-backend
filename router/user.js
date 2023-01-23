@@ -1,14 +1,15 @@
 const express = require("express")
-const router = new express.Router()
+const router = express.Router()
 
+const verifyToken = require("../middleware/verifyToken")
 
-router.get("/usertest", (req, res)=>{
-    res.send("test done")
+router.put("/:id", verifyToken, (req,res)=>{
+    if(req.userId === req.params.id || req.admin)
+    {
+        
+    }
 })
 
-router.post("/userpost", (req, res)=>{
-    const username = req.body.username;
-    res.status(200).send(username);
-})
 
-module.exports = router;
+
+module.exports= router

@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
         lastName,
         username,
         email,
-        password,
+        password,             
         cnfPassword,
       });
 
