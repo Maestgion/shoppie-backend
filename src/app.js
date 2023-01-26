@@ -8,10 +8,12 @@ const PORT = process.env.PORT
 app.use(cookieParser())
 const userRoute = require("../router/user") 
 const authRoute = require("../router/auth")
+const productRoute = require("../router/product")
 
 app.use(express.json())
 app.use("/api/users", userRoute )
 app.use("/api/users", authRoute)
+app.use("/api/products", productRoute)
 
 app.listen(PORT, ()=>{
     console.log("server up ")
