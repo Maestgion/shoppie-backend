@@ -22,7 +22,7 @@ const verifyToken = async (req, res, next)=>{
         req.token = token
         req.rootUser = rootUser
         // req.userID = rootUser._id
-        req.admin = rootUser.isAdmin
+        // req.admin = rootUser.isAdmin
         // req.admin = true
 
         next()
@@ -55,10 +55,24 @@ const verifyTokenAndAuthorization = (req, res, next)=>{
 }
 
 
+const verifyTokenAndAdmin = (req, res, next)=>{
+    verifyToken(req, res, ()=>{
+        if(req.rootUser.isAdmin)
+        {
+            next();
+        }
+        else {
+            res.status(403).json("Unauthorized access!");
+            
+          }
+    })
+}
+
 
 module.exports = {
     verifyToken,
-    verifyTokenAndAuthorization
+    verifyTokenAndAuthorization,
+    verifyTokenAndAdmin
   };
 
 
