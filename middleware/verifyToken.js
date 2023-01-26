@@ -43,7 +43,7 @@ const verifyTokenAndAuthorization = (req, res, next)=>{
     
         if(req.rootUser.id === req.params.id || req.admin)
         {   
-            res.status(200).json({msg:"yes"})  
+            
             next()
         } 
         else {

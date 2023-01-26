@@ -9,7 +9,9 @@ const {verifyTokenAndAuthorization} = require("../middleware/verifyToken")
 router.put("/:id", verifyTokenAndAuthorization, async (req,res)=>{
    if(req.body.password)
    {
-    req.body.password = bcrypt.hash(req.body.password, 10);
+    console.log(req.body.password)
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+    console.log(req.body.password)
    }
 
    try{
@@ -20,7 +22,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req,res)=>{
         res.status(200).json({msg: "user updated", updatedAccount})
    }catch(e)
    {
-    console.error(e);
+    // console.error(e);
     res.status(500).json({error:"error"})
    }
 })
