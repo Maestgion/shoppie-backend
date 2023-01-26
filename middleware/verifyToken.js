@@ -6,12 +6,12 @@ const verifyToken = async (req, res, next)=>{
     try
     {
         const token = req.cookies.jwtoken;
-        console.log("nkjbhgvfc")
+     
 
         const verification = jwt.verify(token, process.env.SECRET_KEY )
-
+       
         const rootUser = await User.findOne({_id:verification._id, "tokens.token":token})
-        console.log(rootUser._id)
+       
         if(!rootUser)
         {
             throw new Error("Usr not found")
@@ -21,8 +21,9 @@ const verifyToken = async (req, res, next)=>{
        
         req.token = token
         req.rootUser = rootUser
-        req.userID = rootUser._id
-        // req.admin = rootUser.isAdmin
+        // req.userID = rootUser._id
+        req.admin = rootUser.isAdmin
+        // req.admin = true
 
         next()
     }catch(e)
@@ -37,11 +38,11 @@ const verifyToken = async (req, res, next)=>{
 
 const verifyTokenAndAuthorization = (req, res, next)=>{
     verifyToken(req, res, ()=>{
-        console.log(req.userID)
-        console.log(req.params.id)
-        if(req.userID === req.params.id || req.rootUser.isAdmin)
+       
+       
+    
+        if(req.rootUser.id === req.params.id || req.admin)
         {   
-            console.log("yes")
             res.status(200).json({msg:"yes"})  
             next()
         } 
