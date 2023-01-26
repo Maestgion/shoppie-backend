@@ -9,9 +9,7 @@ const {verifyTokenAndAuthorization} = require("../middleware/verifyToken")
 router.put("/:id", verifyTokenAndAuthorization, async (req,res)=>{
    if(req.body.password)
    {
-    console.log(req.body.password)
     req.body.password = await bcrypt.hash(req.body.password, 10);
-    console.log(req.body.password)
    }
 
    try{
@@ -22,9 +20,21 @@ router.put("/:id", verifyTokenAndAuthorization, async (req,res)=>{
         res.status(200).json({msg: "user updated", updatedAccount})
    }catch(e)
    {
-    // console.error(e);
+    console.error(e);
     res.status(500).json({error:"error"})
    }
+})
+
+// delete
+
+router.delete("/:id", verifyTokenAndAuthorization, async (req,res)=>{
+    try{
+        await User.findByIdAndDelete(req.params.id)
+        res.status(200).json({msg:"user deleted"})
+    }catch(e)
+    {
+        res.status(500).json(e)
+    }
 })
 
 
