@@ -76,15 +76,33 @@ router.get("/", async (req, res)=>{
 
         if(queryNew)
         {
-            products = 
+            products = await Product.find().sort({createdAt:-1}).limit(1)
+            
+        }
+        else if(queryCategory)
+        {
+            products = await Product.find({
+                categories : {
+                    $in : [queryCategory],
+                }
+            })
+
+        }
+        else
+        {
+            products = await Product.find();
         }
 
+        res.status(200).json(products)
+
+    }catch(e)
+    {
+        res.status(500).json(e)
     }
 })
 
 
 
-router.delete("/:id", )
 
 
 
