@@ -3,7 +3,6 @@ const router = express.Router()
 const Product = require("../model/Product")
 
 const {verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin} = require("../middleware/verifyToken")
-const { findByIdAndUpdate } = require("../model/Product")
 
 
 // create: add product
