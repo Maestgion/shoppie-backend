@@ -41,7 +41,7 @@ const verifyTokenAndAuthorization = (req, res, next)=>{
        
        
     
-        if(req.rootUser.id === req.params.id || req.admin)
+        if(req.rootUser.id === req.params.id || req.rootUser.isAdmin)
         {   
             
             next()
