@@ -64,8 +64,19 @@ router.get("/find/:id", verifyTokenAndAuthorization, async (req, res)=>{
     res.status(500).json(e);
   }
 
-  
+})
 
+// get all user cart
+
+router.get("/", verifyTokenAndAdmin, async (req, res)=>{
+  try{
+    const totalCarts = await Cart.find()
+    res.status(200).json(totalCarts)
+  }catch(e)
+  {
+    console.log(e)
+    res.status(500).json(e)
+  }
 })
 
 module.exports = router;
