@@ -23,7 +23,7 @@ router.post("/", verifyToken, async (req, res) => {
 
 // update
 
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   try {
     const updatedCart = await Cart.findByIdAndUpdate(
       req.params.id,
@@ -39,7 +39,8 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-router.delete("/:id", verifyTokenAndAuthorization, async (req, res)=>{
+// delete
+router.delete("/:id", verifyToken, async (req, res)=>{
     try{
         await Cart.findByIdAndDelete(req.params.id);
         res.status(200).json({msg: "item removed"})
@@ -47,6 +48,24 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res)=>{
     {
         res.status(500).json(e)
     }
+})
+
+// get user cart
+
+router.get("/find/:id", verifyTokenAndAuthorization, async (req, res)=>{
+  try{
+    
+    
+    const cart = await Cart.findOne({userId : req.params.id});
+    res.status(200).json(cart);
+  }catch(e)
+  { 
+    console.log(e)
+    res.status(500).json(e);
+  }
+
+  
+
 })
 
 module.exports = router;
