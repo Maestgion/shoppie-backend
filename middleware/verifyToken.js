@@ -39,8 +39,8 @@ const verifyToken = async (req, res, next)=>{
 const verifyTokenAndAuthorization = (req, res, next)=>{
     verifyToken(req, res, ()=>{
        
-        console.log(req.rootUser.id)
-        console.log(req.params.id)
+        // console.log(req.rootUser.id)
+        // console.log(req.params.id)
     
         if(req.rootUser.id === req.params.id || req.rootUser.isAdmin)
         {   
