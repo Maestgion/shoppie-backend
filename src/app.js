@@ -10,12 +10,14 @@ const userRoute = require("../router/user")
 const authRoute = require("../router/auth")
 const productRoute = require("../router/product")
 const cartRoute = require("../router/cart")
+const orderRoute = require("../router/order")
 
 app.use(express.json())
 app.use("/api/users", userRoute )
 app.use("/api/users", authRoute)
 app.use("/api/products", productRoute)
 app.use("/api/cart/", cartRoute)
+app.use("/api/orders/", orderRoute)
 
 app.listen(PORT, ()=>{
     console.log("server up ")
