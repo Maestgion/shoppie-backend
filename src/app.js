@@ -11,6 +11,7 @@ const authRoute = require("../router/auth")
 const productRoute = require("../router/product")
 const cartRoute = require("../router/cart")
 const orderRoute = require("../router/order")
+const stripeRoute = require("../router/stripe")
 const cors = require("cors")
 
 app.use(cors())
@@ -20,6 +21,7 @@ app.use("/api/users", authRoute)
 app.use("/api/products", productRoute)
 app.use("/api/cart/", cartRoute)
 app.use("/api/orders/", orderRoute)
+app.use("/api/checkout/", stripeRoute)
 
 app.listen(PORT, ()=>{
     console.log("server up ")
