@@ -9,7 +9,7 @@ router.post("/payments", (req, res)=>{
         {
             source : req.body.tokenId,
             amount: req.body.amount,
-            currency : "rupee"
+            currency : 'inr'
         }, (stripeErr, stripeRes)=>{
             stripeErr ? res.status(500).json(stripeErr) : res.status(200).json(stripeRes)
         }
